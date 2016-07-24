@@ -79,14 +79,31 @@ end
 
 #Integration tests
 
+#THIS WORKS BUT IS NOT REUSING CODE
+# def sell_pet_to_customer(pet_shop, pet, customer)
+#   if pet != nil && customer[:cash] >= pet[:price]  
+#     customer[:pets] << pet
+#     pet_shop[:admin][:pets_sold] += 1
+#     pet_shop[:admin][:total_cash] += pet[:price]
+#   else
+#     return
+#   end
+# end
+
+# THIS ALSO WORKS AND WAS AN ATTEMPT TO REUSE CODE BUT NOT TOO SURE I'VE DONE THAT RIGHT AS IT SEEMS MORE CLUNKY THAN NOT REUSING THE CODE.
 def sell_pet_to_customer(pet_shop, pet, customer)
   if pet != nil && customer[:cash] >= pet[:price]  
-    customer[:pets] << pet
-    pet_shop[:admin][:pets_sold] += 1
-    pet_shop[:admin][:total_cash] += pet[:price]
+    customer[:pets] = add_pet_to_customer(customer, pet)
+    pet_shop[:admin][:pets_sold] = pets_sold(pet_shop) + 1
+    pet_shop[:admin][:total_cash] = total_cash(pet_shop) + pet[:price]
   else
     return
   end
 end
+
+
+
+
+
 
 
